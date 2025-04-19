@@ -32,6 +32,7 @@ fetch('coordinates.txt')
     })
     .catch(error => console.error('Error loading coordinates:', error));
 
+
 // Load the Pacific Crest Trail GeoJSON file and add it to the map
 fetch('pct.geojson')
     .then(response => response.json())
