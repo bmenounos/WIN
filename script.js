@@ -39,7 +39,7 @@ fetch('pct.geojson')
         // Add the PCT as a geoJSON layer
         L.geoJSON(data, {
             style: {
-                color: 'blue', // PCT line color
+                color: 'red', // PCT line color
                 weight: 4,
                 opacity: 0.7
             }
