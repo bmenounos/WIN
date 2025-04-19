@@ -1,5 +1,5 @@
 // Initialize the map with a default view
-const map = L.map('map').setView([51.505, -0.09], 13); // Default coordinates
+const map = L.map('map').setView([34.01319,-116.668594], 13); // Default coordinates
 
 // Load and add OpenStreetMap tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -11,15 +11,22 @@ fetch('coordinates.txt')
     .then(response => response.text())
     .then(data => {
         const coordinates = data.split('\n');
-        coordinates.forEach(coord => {
-            const [lat, lon, date] = coord.split(',').map(item => item.trim());
-            const latitude = parseFloat(lat);
-            const longitude = parseFloat(lon);
 
-            if (!isNaN(latitude) && !isNaN(longitude)) {
-                // Create a marker and bind a popup with the date stamp
-                L.marker([latitude, longitude]).addTo(map)
-                    .bindPopup(`Point: ${latitude}, ${longitude}<br>Date: ${date}`);
+        coordinates.forEach(coord => {
+            const parts = coord.split(','); // split the line by comma
+            
+            // Trim and check if we have exactly three parts
+            if (parts.length === 3) {
+                const lat = parseFloat(parts[0].trim());
+                const lon = parseFloat(parts[1].trim());
+                const date = parts[2].trim(); // get the date
+
+                // Check if latitude and longitude are valid numbers
+                if (!isNaN(lat) && !isNaN(lon)) {
+                    // Create a marker and bind a popup with the date stamp
+                    L.marker([lat, lon]).addTo(map)
+                        .bindPopup(`Point: ${lat}, ${lon}<br>Date: ${date}`);
+                }
             }
         });
     })
