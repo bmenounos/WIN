@@ -13,6 +13,21 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
 }).addTo(map);
 
+// Load coordinates from the text file and add markers
+fetch('coordinates.txt')
+    .then(response => response.text())
+    .then(data => {
+        const coordinates = data.split('\n');
+        coordinates.forEach(coord => {
+            const [lat, lon] = coord.split(',').map(Number);
+            if (!isNaN(lat) && !isNaN(lon)) {
+                L.marker([lat, lon]).addTo(map)
+                    .bindPopup(`Point: ${lat}, ${lon}`);
+            }
+        });
+    })
+    .catch(error => console.error('Error loading coordinates:', error));
+
 // Function to update the user's position on the map
 function showPosition(position) {
     const lat = position.coords.latitude;
