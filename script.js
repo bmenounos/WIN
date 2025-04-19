@@ -6,7 +6,7 @@ if (navigator.geolocation) {
 }
 
 // Initialize the map
-const map = L.map('map').setView([51.505, -0.09], 13); // Default coordinates
+const map = L.map('map').setView([34.149513 -116.710434], 13); // Default coordinates
 
 // Load and add OpenStreetMap tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -36,7 +36,7 @@ function showPosition(position) {
     // Update the map view and marker
     map.setView([lat, lon], 13); // Move map to user's position
     L.marker([lat, lon]).addTo(map) // Add a marker for the user's position
-        .bindPopup('You are here')
+        .bindPopup('Test')
         .openPopup();
 }
 
