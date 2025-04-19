@@ -1,10 +1,13 @@
 // Initialize the map with a default view
 const map = L.map('map').setView([34.01319,-116.668594], 13); // Default coordinates
 
-// Load and add OpenStreetMap tiles
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
+// Load and add Stamen Terrain tiles
+L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg', {
+    maxZoom: 18,
+    minZoom: 1,
+    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under ODbL.'
 }).addTo(map);
+
 
 // Load coordinates from the text file and add markers
 fetch('coordinates.txt')
