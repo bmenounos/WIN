@@ -3,18 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Where Is Nathan?</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <title>Open Map Project - Pacific Crest Trail</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
         #map {
-            height: 100vh; /* Full view height */
+            height: 70vh; /* Full view height for map */
+        }
+        .content {
+            padding: 10px;
+        }
+        img {
+            max-width: 100%; /* Make images responsive */
         }
     </style>
 </head>
 <body>
+
+    <div class="content">
+        <h1>Pacific Crest Trail Map</h1>
+        <p>This map displays the Pacific Crest Trail (PCT) using OpenStreetMap tiles. The trail stretches from Mexico to Canada.</p>
+        <img src="your_image1.jpg" alt="Image of the Pacific Crest Trail">
+        <img src="your_image2.jpg" alt="Another Image of the Trail">
+    </div>
+
     <div id="map"></div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+    
+    <script>
+        // Initialize the map with a default view
+        const map = L.map('map').setView([36.7783, -119.4179], 6); // Centered around California
+
+        // Load and add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Load the Pacific Crest Trail GeoJSON file and add it to the map
+        fetch('pct.geojson')
+            .then(response => response.json())
+            .then(data => {
+                // Add the PCT as a geoJSON layer
+                L.geoJSON(data, {
+                    style: {
+                        color: 'blue', // Set the color for the trail
+                        weight: 4,
+                        opacity: 0.7
+                    }
+                }).addTo(map);
+                
+                // Optionally fit the map view to the trail
+                const trailBounds = L.geoJSON(data).getBounds();
+                map.fitBounds(trailBounds);
+            })
+            .catch(error => console.error('Error loading PCT data:', error));
+    </script>
 </body>
 </html>
+
