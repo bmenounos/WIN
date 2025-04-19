@@ -31,3 +31,18 @@ fetch('coordinates.txt')
         });
     })
     .catch(error => console.error('Error loading coordinates:', error));
+
+// Load the Pacific Crest Trail GeoJSON file and add it to the map
+fetch('pct.geojson')
+    .then(response => response.json())
+    .then(data => {
+        // Add the PCT as a geoJSON layer
+        L.geoJSON(data, {
+            style: {
+                color: 'blue', // PCT line color
+                weight: 4,
+                opacity: 0.7
+            }
+        }).addTo(map);
+    })
+    .catch(error => console.error('Error loading PCT data:', error));
