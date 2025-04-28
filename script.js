@@ -1,5 +1,5 @@
 // Initialize the map with a default view
-const map = L.map('map').setView([34.01319,-116.668594], 13); // Default coordinates
+const map = L.map('map').setView([34.01319,-116.668594], 5); // Default coordinates
 
 // Load and add OpenStreetMap tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
